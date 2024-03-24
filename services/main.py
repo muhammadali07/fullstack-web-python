@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 
 # import fucntion from app
-import app
+import app as service
 
 app = Flask(__name__)
 app.debug = True # auto reload when change the file
@@ -12,16 +12,17 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    print(request.form)
     username = request.form["username"]
     password = request.form["password"]
-    res , e = app.login(username, password)
-    if e != None:
-        flash(e)
+    print(username, password)
+    res , err = service.login(username, password)
+    if err != None:
+        print(err)
+        return redirect(url_for(index))
     elif len(res) > 0:
         return redirect(url_for(dashboard))
     else:
-        print("gagal masihan")
+        return redirect(url_for(index))
  
     
 # redirect page

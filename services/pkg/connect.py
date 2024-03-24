@@ -8,7 +8,6 @@ def connection():
                                 user="codingnowuser",
                                 password="codingnowpassword",
                                 port="5439")
-        print("connection successfully")
         return conn, None
     except (psycopg2.DatabaseError, Exception) as error:
         return None, error
